@@ -1,19 +1,19 @@
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
+import { useState } from "react";
 
 export default function App() {
+  const [items, setItems] = useState(["Item 1", "Item 2"]);
+
   return (
     <View style={styles.container}>
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's Tasks</Text>
         <View style={styles.items}>
-          <Task text="Task 1" />
-          <Task text="Task 2" />
-          <Task text="Task 3" />
-          <Task text="Task 4" />
-          <Task text="Task 5" />
-          <Task text="Task 6" />
+          {items.map((item, index) => {
+            return <Task text={item} key={index}></Task>;
+          })}
         </View>
       </View>
       <KeyboardAvoidingView
