@@ -1,8 +1,8 @@
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
-import { useState } from "react";
-import { AsyncStorage } from '@react-native-async-storage/async-storage'
+import { useEffect, useState } from "react";
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -10,6 +10,22 @@ export default function App() {
   const onAddTaskPress = (text) => {
     setItems([...items, text]);
   };
+
+  useEffect(() => {
+    // Load the task list from AsyncStorage
+    const loadTasks = async () => {
+      try {
+        const storedTasks = await AsyncStorage.getItem("taskList");
+        if (storedTasks !== null) {
+          setItems(JSON.parse(storedTasks));
+        }
+      } catch (error) {
+        console.error("Error loading tasks from AsyncStorage: ", error);
+      }
+    };
+
+    loadTasks();
+  }, []);
 
   return (
     <View style={styles.container}>
