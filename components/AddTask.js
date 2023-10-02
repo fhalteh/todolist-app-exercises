@@ -10,8 +10,9 @@ import {
 } from "react-native";
 
 const AddTask = (props) => {
+  const { onPress } = props;
   const handleAddTask = () => {
-    // implement
+    onPress();
   };
 
   return (
@@ -30,8 +31,6 @@ const styles = StyleSheet.create({
     padding: 16,
     flexDirection: "row",
     alignItems: "center",
-    // width: "100%"
-    // justifyContent: "space-between", // will push the leading and trailling to opposite ends
   },
   text: {
     color: "#558CF6",

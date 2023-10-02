@@ -20,7 +20,11 @@ export default function App() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.addTaskContainer}
       >
-        <AddTask />
+        <AddTask
+          onPress={() => {
+            console.log("Add button has been pressed");
+          }}
+        />
       </KeyboardAvoidingView>
     </View>
   );
