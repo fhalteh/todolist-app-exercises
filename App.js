@@ -4,7 +4,11 @@ import AddTask from "./components/AddTask";
 import { useState } from "react";
 
 export default function App() {
-  const [items, setItems] = useState(["Item 1", "Item 2"]);
+  const [items, setItems] = useState([]);
+
+  const onAddTaskPress = (text) => {
+    setItems([...items, text]);
+  };
 
   return (
     <View style={styles.container}>
@@ -20,11 +24,7 @@ export default function App() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.addTaskContainer}
       >
-        <AddTask
-          onAddTaskPress={(text) => {
-            console.log("Add button has been pressed with task - " + text);
-          }}
-        />
+        <AddTask onAddTaskPress={onAddTaskPress} />
       </KeyboardAvoidingView>
     </View>
   );
