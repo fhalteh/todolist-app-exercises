@@ -1,15 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const Task = (props) => {
+  const { text, onPress } = props;
   return (
-    <View style={styles.item}>
-      {/* // Added item leading section so that we can add a button on the trailing edge later on */}
-      <View style={styles.itemLeading}>
-        <View style={styles.square}></View>
-        <Text style={styles.itemText}>{props.text}</Text>
+    <TouchableOpacity>
+      <View style={styles.item}>
+        {/* // Added item leading section so that we can add a button on the trailing edge later on */}
+        <View style={styles.itemLeading}>
+          <View style={styles.square}></View>
+          <Text style={styles.itemText}>{text}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
