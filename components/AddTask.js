@@ -10,14 +10,26 @@ import {
 } from "react-native";
 
 const AddTask = (props) => {
-  const { onPress } = props;
+  const [task, setTask] = useState();
+  const { onAddTaskPress } = props;
   const handleAddTask = () => {
-    onPress();
+    onAddTaskPress(task);
+    Keyboard.dismiss()
+    setTask()
   };
+
+  const handleTextChange = (text) => {
+    setTask(text)
+  }
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} placeholder="Write a task" />
+      <TextInput
+        style={styles.textInput}
+        placeholder="Write a task"
+        value={task}
+        onChangeText={handleTextChange}
+      />
       <TouchableOpacity style={styles.button} onPress={handleAddTask}>
         <Text style={styles.text}>Add</Text>
       </TouchableOpacity>

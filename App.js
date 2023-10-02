@@ -21,8 +21,8 @@ export default function App() {
         style={styles.addTaskContainer}
       >
         <AddTask
-          onPress={() => {
-            console.log("Add button has been pressed");
+          onAddTaskPress={(text) => {
+            console.log("Add button has been pressed with task - " + text);
           }}
         />
       </KeyboardAvoidingView>
