@@ -7,13 +7,30 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function App() {
   const [items, setItems] = useState([]);
 
+  const handleTaskPressed = async (index) => {
+    console.log("Handle task pressed");
+    console.log(items)
+    console.log(index)
+    let updatedTasks = [...items];
+    updatedTasks[index].isCompleted = !updatedTasks[index].isCompleted;
+    setItems(updatedTasks);
+  
+    try {
+      // Save the updated task list to AsyncStorage
+      await AsyncStorage.setItem("task-list", JSON.stringify([updatedTasks]));
+    } catch (error) {
+      console.error("Error saving tasks to AsyncStorage: ", error);
+    }
+  };
+
   const onAddTaskPress = async (text) => {
     // Update the tasks
-    const updatedTasks = [...items, text]
+    const updatedTasks = [...items, { text: text, isCompleted: false }]
     setItems(updatedTasks);
 
+    console.log(updatedTasks)
     try {
-      await AsyncStorage.setItem("taskList", JSON.stringify(updatedTasks));
+      await AsyncStorage.setItem("task-list", JSON.stringify(updatedTasks));
     } catch (error) {
       console.error("Error saving tasks to AsyncStorage: ", error);
     }
@@ -23,7 +40,7 @@ export default function App() {
     // Load the task list from AsyncStorage
     const loadTasks = async () => {
       try {
-        const storedTasks = await AsyncStorage.getItem("taskList");
+        const storedTasks = await AsyncStorage.getItem("task-list");
         if (storedTasks !== null) {
           setItems(JSON.parse(storedTasks));
         }
@@ -41,7 +58,7 @@ export default function App() {
         <Text style={styles.sectionTitle}>Today's Tasks</Text>
         <View style={styles.items}>
           {items.map((item, index) => {
-            return <Task text={item} key={index}></Task>;
+            return <Task text={item.text} isCompleted={item.isCompleted} key={index} onPress={ () => handleTaskPressed(index) }></Task>;
           })}
         </View>
       </View>

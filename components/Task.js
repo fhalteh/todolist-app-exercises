@@ -2,14 +2,20 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const Task = (props) => {
-  const { text, onPress } = props;
+  const { text, isCompleted, onPress } = props;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.item}>
         {/* // Added item leading section so that we can add a button on the trailing edge later on */}
         <View style={styles.itemLeading}>
-          <View style={styles.square}></View>
-          <Text style={styles.itemText}>{text}</Text>
+          <View style={styles.square}>
+            {isCompleted && <Text style={styles.checkmark}>&#10003;</Text>}
+          </View>
+          <Text
+            style={[styles.text, isCompleted ? styles.completedText : null]}
+          >
+            {text}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -49,6 +55,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap", // so if the text is pretty long, it'll be wrapped to the next line
+  },
+  checkmark: {
+    color: "#000",
+    fontSize: 15,
+  },
+  completedText: {
+    textDecorationLine: 'line-through',
+    color: "#888" // You can adjust the color for completed tasks
   },
 });
 
