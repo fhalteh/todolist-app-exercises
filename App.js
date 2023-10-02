@@ -2,6 +2,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
 import { useState } from "react";
+import { AsyncStorage } from '@react-native-async-storage/async-storage'
 
 export default function App() {
   const [items, setItems] = useState([]);
